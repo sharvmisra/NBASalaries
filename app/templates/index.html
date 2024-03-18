@@ -58,25 +58,17 @@
 <body>
     <div class="content-box">
         <img src="https://upload.wikimedia.org/wikipedia/en/0/03/National_Basketball_Association_logo.svg" alt="NBA Logo" class="nba-logo">
-        <h2>NBA Player Details</h2> 
+        <h2>NBA Player Details</h2>
+        <p><a href="{{ url_for('add_player') }}">Add New Player</a></p>
+
         <input type="text" id="playerName" placeholder="Enter Player Name">
         <button onclick="displayPlayerDetails()">Show Player Details</button>
         <div id="playerDetails">
-            <!-- Player details, image, and salary will be added here -->
+            <!-- Player details will be added here -->
         </div>
     </div>
 
     <script>
-        // Example player data
-        const playersData = {
-            'LeBron James': {
-                image: 'https://via.placeholder.com/150', // Placeholder
-                predictedSalary: '$39M',
-                actualSalary: '$41M'
-            },
-            // Add more players/details
-        };
-
         function displayPlayerDetails() {
             const playerName = document.getElementById('playerName').value.trim();
             if(playerName === '') {
@@ -84,25 +76,26 @@
                 return;
             }
 
-            const player = playersData[playerName];
-            const playerDetailsDiv = document.getElementById('playerDetails');
-            playerDetailsDiv.innerHTML = ''; 
-
-            if(player) {
-                // Display player image
-                const img = document.createElement('img');
-                img.src = player.image;
-                img.alt = playerName;
-
-                // Display salaries
-                const salaryInfo = document.createElement('p');
-                salaryInfo.innerHTML = `Predicted Salary: ${player.predictedSalary} <br> Actual Salary: ${player.actualSalary}`;
-
-                playerDetailsDiv.appendChild(img);
-                playerDetailsDiv.appendChild(salaryInfo);
-            } else {
-                playerDetailsDiv.innerHTML = '<p>Player details not found. Please enter a different name.</p>';
-            }
+            fetch(`/get_player/${encodeURIComponent(playerName)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(player => {
+                const playerDetailsDiv = document.getElementById('playerDetails');
+                playerDetailsDiv.innerHTML = `
+                    <img src="${player.image_url}" alt="Player image">
+                    <p>Name: ${player.name}</p>
+                    <p>Predicted Salary: ${player.predicted_salary}</p>
+                    <p>Actual Salary: ${player.actual_salary}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching player details:', error);
+                alert('Player not found.');
+            });
         }
     </script>
 </body>
