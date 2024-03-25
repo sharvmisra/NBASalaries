@@ -16,6 +16,10 @@
             {{ form.actual_salary.label }}<br>
             {{ form.actual_salary(size=20) }}
         </p>
+        <p>
+            {{ form.image_url.label }}<br>  <!-- This line adds the image URL field -->
+            {{ form.image_url(size=20) }}
+        </p>
         <p>{{ form.submit() }}</p>
     </form>
     {% for message in get_flashed_messages() %}
