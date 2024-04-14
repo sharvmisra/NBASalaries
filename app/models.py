@@ -6,7 +6,7 @@ class Player(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     predicted_salary = db.Column(db.String(50))
     actual_salary = db.Column(db.String(50))
-    image_url = db.Column(db.String(200), default='default_player_image.jpg')
+    image_url = db.Column(db.String(200), nullable=True)  # Assuming you want to allow URLs to be optional
 
     def __repr__(self):
         return f'<Player {self.name}>'
@@ -16,5 +16,5 @@ class Player(db.Model):
             'name': self.name,
             'predicted_salary': self.predicted_salary,
             'actual_salary': self.actual_salary,
-            'image_url': self.image_url
+            'image_url': self.image_url or 'default_player_image.jpg'  # Provide a default if no image URL is supplied
         }

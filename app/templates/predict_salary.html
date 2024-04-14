@@ -1,0 +1,13 @@
+<!-- templates/predict_salary.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Predict NBA Salary</h1>
+    <form action="{{ url_for('predict_salary') }}" method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.points_per_game.label }} {{ form.points_per_game }}</p>
+        <p>{{ form.assists_per_game.label }} {{ form.assists_per_game }}</p>
+        <p>{{ form.rebounds_per_game.label }} {{ form.rebounds_per_game }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

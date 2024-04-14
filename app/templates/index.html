@@ -61,6 +61,9 @@
         <h2>NBA Player Details</h2>
         <p><a href="{{ url_for('add_player') }}">Add New Player</a></p>
 
+        <p><a href="{{ url_for('predict_salary') }}">Predict Salary</a></p>
+
+
         <input type="text" id="playerName" placeholder="Enter Player Name">
         <button onclick="displayPlayerDetails()">Show Player Details</button>
         <div id="playerDetails">

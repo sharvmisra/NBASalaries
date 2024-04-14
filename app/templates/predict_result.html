@@ -1,0 +1,13 @@
+
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Predicted NBA Salary</h1>
+    {% if predicted_salary %}
+        <p>The predicted salary for this player is: {{ predicted_salary }}</p>
+    {% else %}
+        <p>No salary prediction to display. Please try again.</p>
+    {% endif %}
+{% endblock %}
+

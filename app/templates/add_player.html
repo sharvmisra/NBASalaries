@@ -4,24 +4,42 @@
     <h1>Add New Player</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
+
         <p>
             {{ form.name.label }}<br>
             {{ form.name(size=32) }}
+            {% if form.name.errors %}
+                <span style="color: red;">{{ form.name.errors[0] }}</span>
+            {% endif %}
         </p>
+
         <p>
             {{ form.predicted_salary.label }}<br>
             {{ form.predicted_salary(size=20) }}
+            {% if form.predicted_salary.errors %}
+                <span style="color: red;">{{ form.predicted_salary.errors[0] }}</span>
+            {% endif %}
         </p>
+
         <p>
             {{ form.actual_salary.label }}<br>
             {{ form.actual_salary(size=20) }}
+            {% if form.actual_salary.errors %}
+                <span style="color: red;">{{ form.actual_salary.errors[0] }}</span>
+            {% endif %}
         </p>
+
         <p>
-            {{ form.image_url.label }}<br>  <!-- This line adds the image URL field -->
+            {{ form.image_url.label }}<br>
             {{ form.image_url(size=20) }}
+            {% if form.image_url.errors %}
+                <span style="color: red;">{{ form.image_url.errors[0] }}</span>
+            {% endif %}
         </p>
+
         <p>{{ form.submit() }}</p>
     </form>
+
     {% for message in get_flashed_messages() %}
         <div>{{ message }}</div>
     {% endfor %}
